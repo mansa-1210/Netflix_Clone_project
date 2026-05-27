@@ -26,8 +26,14 @@ const getOrderedCards = (cards, mode) => {
   return [...availableCards, ...unavailableCards];
 };
 
+const getMovieId = (card, index = 0) => {
+  if (card.id) return card.id;
+  if (card.name) return card.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return `local-${index}`;
+};
+
 const normalizeCards = (cards) => cards.map((card, index) => ({
-  id: card.id || `local-${index}`,
+  id: getMovieId(card, index),
   name: card.name,
   image: card.image,
   genre: card.genre,
@@ -41,7 +47,14 @@ const normalizeCards = (cards) => cards.map((card, index) => ({
   isFallback: true,
 }));
 
-const TitleCards = ({ title, mode = 'normal', cards, onMovieSelect }) => {
+const TitleCards = ({
+  title,
+  mode = 'normal',
+  cards,
+  onMovieSelect,
+  onToggleMyList,
+  isInMyList
+}) => {
 
   const cardsRef = useRef();
   const wheelEventRef = useRef(null);
@@ -76,27 +89,38 @@ const TitleCards = ({ title, mode = 'normal', cards, onMovieSelect }) => {
       <div className="card-list" ref={cardsRef}>
         {orderedCards.map((card, index) => {
             const cardTitle = card.original_title || card.name || 'Movie';
-            const cardId = card.id || `local-${index}`;
+            const cardId = getMovieId(card, index);
             const backdropPath = card.backdrop_path || card.poster_path;
             const cardImage = card.image || (backdropPath ? `https://image.tmdb.org/t/p/w500${backdropPath}` : 'https://via.placeholder.com/240x135?text=No+Image');
             
             return (
-              <button
-                type="button"
-                className="card" 
-                key={`card-${cardId}`}
-                title={cardTitle}
-                onClick={() => onMovieSelect?.(card)}
-              >
-                <img
-                  src={cardImage}
-                  alt={cardTitle}
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/240x135?text=No+Image';
-                  }}
-                />
-                <p>{cardTitle}</p>
-              </button>
+              <div className="card" key={`card-${cardId}`}>
+                <button
+                  type="button"
+                  className="card-poster"
+                  title={cardTitle}
+                  onClick={() => onMovieSelect?.(card)}
+                >
+                  <img
+                    src={cardImage}
+                    alt={cardTitle}
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/240x135?text=No+Image';
+                    }}
+                  />
+                  <p>{cardTitle}</p>
+                </button>
+                {onToggleMyList && (
+                  <button
+                    type="button"
+                    className={`card-list-btn ${isInMyList?.(cardId) ? 'added' : ''}`}
+                    onClick={() => onToggleMyList(card)}
+                    aria-label={`${isInMyList?.(cardId) ? 'Remove from' : 'Add to'} My List`}
+                  >
+                    {isInMyList?.(cardId) ? 'Added' : '+ My List'}
+                  </button>
+                )}
+              </div>
             );
           })}
       </div>

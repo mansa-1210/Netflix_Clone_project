@@ -47,11 +47,22 @@
     color: #fff;
     background: #6d6d6eb3;
 }
+.hero-btns .btn.list-hero-btn{
+    color: #fff;
+    background: rgba(30, 30, 30, 0.88);
+}
+.hero-btns .btn.list-hero-btn.added{
+    background: rgba(31, 111, 56, 0.9);
+}
 .hero-btns .btn:hover{
     background: #ffffffbf;
 }
 .hero-btns .btn.dark-btn:hover{
     background: #6d6d6e66;
+}
+.hero-btns .btn.list-hero-btn:hover{
+    color: #fff;
+    background: #e50914;
 }
 .more-cards{
     padding-left: 6%;

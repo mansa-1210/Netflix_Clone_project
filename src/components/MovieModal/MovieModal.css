@@ -129,6 +129,15 @@
     background: #4a4a4a;
 }
 
+.movie-list-btn {
+    color: #fff;
+    background: #333;
+}
+
+.movie-list-btn.added {
+    background: #1f6f38;
+}
+
 .movie-modal-actions button:hover {
     transform: translateY(-1px);
 }
@@ -138,6 +147,11 @@
 }
 
 .movie-close-btn:hover {
+    background: #e50914;
+}
+
+.movie-list-btn:hover {
+    color: #fff;
     background: #e50914;
 }
 

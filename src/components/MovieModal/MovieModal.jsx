@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import './MovieModal.css'
 import play_icon from '../../assets/play_icon.png'
 
-const MovieModal = ({ movie, onClose, onPlay }) => {
+const MovieModal = ({ movie, onClose, onPlay, onToggleMyList, isInMyList }) => {
   const overlayRef = useRef(null)
 
   useEffect(() => {
@@ -29,6 +29,8 @@ const MovieModal = ({ movie, onClose, onPlay }) => {
 
   if (!movie) return null
 
+  const added = isInMyList?.(movie.id)
+
   return (
     <div className="movie-modal-overlay" ref={overlayRef} onMouseDown={handleOverlayClick}>
       <div className="movie-modal">
@@ -51,6 +53,11 @@ const MovieModal = ({ movie, onClose, onPlay }) => {
               <img src={play_icon} alt="" />
               Play
             </button>
+            {onToggleMyList && (
+              <button className={`movie-list-btn ${added ? 'added' : ''}`} type="button" onClick={() => onToggleMyList(movie)}>
+                {added ? 'Remove from List' : '+ My List'}
+              </button>
+            )}
             <button className="movie-close-btn" type="button" onClick={onClose}>Close</button>
           </div>
         </div>

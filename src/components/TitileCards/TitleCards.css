@@ -24,6 +24,13 @@
 .card-list .card{
     position: relative;
     flex: 0 0 auto;
+    width: 240px;
+    height: 135px;
+}
+.card-poster{
+    position: relative;
+    width: 100%;
+    height: 100%;
     border: 0;
     padding: 0;
     color: inherit;
@@ -32,7 +39,7 @@
     cursor: pointer;
     transition: transform 0.25s ease, filter 0.25s ease;
 }
-.card-list .card:hover{
+.card-list .card:hover .card-poster{
     transform: scale(1.05);
     filter: brightness(1.08);
 }
@@ -44,6 +51,35 @@
     color: #fff;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
 }
+.card-list-btn{
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    padding: 6px 9px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.68);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 800;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+.card-list .card:hover .card-list-btn,
+.card-list-btn.added{
+    opacity: 1;
+    transform: translateY(0);
+}
+.card-list-btn:hover{
+    background: #e50914;
+}
+.card-list-btn.added{
+    border-color: #46d369;
+    background: rgba(20, 70, 35, 0.86);
+}
 
 @media (max-width: 800px) {
     .title-cards{
@@ -53,6 +89,7 @@
     .title-cards h2{
         font-size: 20px;
     }
+    .card-list .card,
     .card-list img{
         width: 200px;
     }
@@ -65,6 +102,7 @@
     .title-cards h2{
         font-size: 15px;
     }
+    .card-list .card,
     .card-list img{
         width: 165px;
     }
