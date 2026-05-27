@@ -23,6 +23,18 @@
 }
 .card-list .card{
     position: relative;
+    flex: 0 0 auto;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+.card-list .card:hover{
+    transform: scale(1.05);
+    filter: brightness(1.08);
 }
 .card-list .card p{
     position: absolute;
@@ -30,6 +42,7 @@
     right: 10px;
     text-decoration: none;
     color: #fff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
 }
 
 @media (max-width: 800px) {

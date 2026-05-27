@@ -20,8 +20,18 @@ const Login = () => {
     try {
       if(signState==="Sign In"){
         await login(email, password);
+        localStorage.setItem('netflixCloneUser', JSON.stringify({
+          username: email.split('@')[0] || 'Rakshitha',
+          email,
+          password
+        }));
       } else {
         await signup(name, email, password);
+        localStorage.setItem('netflixCloneUser', JSON.stringify({
+          username: name || email.split('@')[0] || 'Rakshitha',
+          email,
+          password
+        }));
       }
       navigate('/');
     } catch (error) {

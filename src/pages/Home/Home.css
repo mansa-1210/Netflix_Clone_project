@@ -55,10 +55,32 @@
 }
 .more-cards{
     padding-left: 6%;
+    padding-bottom: 60px;
 }
 
 .page-content {
     padding-top: 80px;
+    min-height: 100vh;
+    background: #000;
+}
+
+.search-results{
+    padding-top: 20px;
+    padding-right: 6%;
+}
+
+.search-results h1{
+    margin-bottom: 18px;
+}
+
+.no-movies{
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b3b3b3;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 @media (max-width: 1024px){
@@ -84,8 +106,11 @@
     .hero-btns .btn img{
         width: 20px;
     }
-    .nore-cards{
+    .more-cards{
         padding-left: 4%;
+    }
+    .search-results{
+        padding-right: 4%;
     }
 }
 @media (max-width: 500px){

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import './TitleCards.css'
-import { Link } from 'react-router-dom'
 import cards_data from '../../assets/cards/Cards_data'
 
 const shuffleCards = (cards) => {
@@ -27,20 +26,27 @@ const getOrderedCards = (cards, mode) => {
   return [...availableCards, ...unavailableCards];
 };
 
-const TitleCards = ({ title, category, mode = 'normal' }) => {
+const normalizeCards = (cards) => cards.map((card, index) => ({
+  id: card.id || `local-${index}`,
+  name: card.name,
+  image: card.image,
+  genre: card.genre,
+  year: card.year,
+  rating: card.rating,
+  duration: card.duration,
+  description: card.description,
+  trailerKey: card.trailerKey,
+  published_at: card.published_at,
+  trailerAvailable: card.trailerAvailable,
+  isFallback: true,
+}));
+
+const TitleCards = ({ title, mode = 'normal', cards, onMovieSelect }) => {
 
   const cardsRef = useRef();
   const wheelEventRef = useRef(null);
 
-  const fallbackCards = cards_data.map((card, index) => ({
-    id: `local-${index}`,
-    name: card.name,
-    image: card.image,
-    trailerKey: card.trailerKey,
-    published_at: card.published_at,
-    trailerAvailable: card.trailerAvailable,
-    isFallback: true,
-  }));
+  const fallbackCards = normalizeCards(cards || cards_data);
   const orderedCards = getOrderedCards(fallbackCards, mode);
 
   useEffect(() => {
@@ -75,19 +81,12 @@ const TitleCards = ({ title, category, mode = 'normal' }) => {
             const cardImage = card.image || (backdropPath ? `https://image.tmdb.org/t/p/w500${backdropPath}` : 'https://via.placeholder.com/240x135?text=No+Image');
             
             return (
-              <Link 
-                to={`/player/${cardId}`} 
-                state={{
-                  title: cardTitle,
-                  mediaType: category?.startsWith('tv') ? 'tv' : 'movie',
-                  fallbackTrailer: card.isFallback,
-                  trailerKey: card.trailerKey,
-                  published_at: card.published_at,
-                  trailerAvailable: card.trailerAvailable
-                }}
+              <button
+                type="button"
                 className="card" 
                 key={`card-${cardId}`}
                 title={cardTitle}
+                onClick={() => onMovieSelect?.(card)}
               >
                 <img
                   src={cardImage}
@@ -97,7 +96,7 @@ const TitleCards = ({ title, category, mode = 'normal' }) => {
                   }}
                 />
                 <p>{cardTitle}</p>
-              </Link>
+              </button>
             );
           })}
       </div>

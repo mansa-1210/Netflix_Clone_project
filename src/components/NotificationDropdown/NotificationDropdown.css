@@ -1,0 +1,95 @@
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: 52px;
+    width: min(320px, 88vw);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(18, 18, 18, 0.98);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
+    animation: dropdownIn 0.2s ease;
+}
+
+.notification-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background: #121212;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    transform: rotate(45deg);
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-header h3 {
+    font-size: 16px;
+}
+
+.notification-header button {
+    border: 0;
+    color: #e50914;
+    background: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.notification-list {
+    padding: 8px 0;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #fff;
+    transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.notification-item.read {
+    color: #9f9f9f;
+}
+
+.notification-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.notification-item.unread .notification-dot {
+    background: #e50914;
+}
+
+@keyframes dropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .notification-dropdown {
+        right: 0;
+    }
+}
